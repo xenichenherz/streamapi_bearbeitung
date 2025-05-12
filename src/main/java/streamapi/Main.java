@@ -1,6 +1,9 @@
 package streamapi;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.*;
 
 /** Starter for the stream api task. */
@@ -19,7 +22,7 @@ public class Main {
         // Task III: Random
 
         // Task IV+V: Resources
-
+        System.out.println(resources("file.txt"));
     }
 
     /**
@@ -70,8 +73,7 @@ public class Main {
      * @return An open {@link InputStream} for the resource file
      */
     private static InputStream getResourceAsStream(String path) {
-        // TODO
-        throw new UnsupportedOperationException();
+        return Main.class.getClassLoader().getResourceAsStream(path);
     }
 
     /**
@@ -86,6 +88,34 @@ public class Main {
      */
     public static String resources(String path) {
         // TODO
-        throw new UnsupportedOperationException();
+        StringBuilder result = new StringBuilder();
+
+        try (InputStream stream = getResourceAsStream(path)) {
+            BufferedReader r = new BufferedReader(new InputStreamReader(stream));
+
+            r.lines().filter(line -> line.startsWith("a") && line.length() >= 2)
+                    .forEach(line -> result.append(line).append("\n"));
+
+            /*String newLine = r.readLine();
+            while (newLine != null) {
+                allLines.add(newLine);
+                newLine = r.readLine();
+            }
+
+            for (int i = 1; i < allLines.size(); i++) {
+                String s = allLines.get(i);
+                if (s.startsWith("a") && !(s.length() < 2)) {
+                    result.append(allLines.get(i)).append("\n");
+                }
+            }*/
+
+            // alle Zeilen mit a und mindestens 2 Zeichen und dann mit \n trennen
+            
+
+        } catch (IOException e) {
+            System.err.println("Ouch, that didn't work: \n" + e.getMessage());
+        }
+
+        return result.toString();
     }
 }
