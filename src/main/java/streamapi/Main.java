@@ -2,6 +2,7 @@ package streamapi;
 
 import java.io.InputStream;
 import java.util.*;
+import java.util.stream.IntStream;
 
 /** Starter for the stream api task. */
 public class Main {
@@ -13,6 +14,14 @@ public class Main {
     public static void main(String... args) {
 
         // Task I: Students
+        System.out.println(
+                students(
+                        List.of(
+                                new Student("A", 30, Enrollment.IFM),
+                                new Student("B", 45, Enrollment.IFM),
+                                new Student("C", 60, Enrollment.ELT),
+                                new Student("D", 45, Enrollment.ARCH),
+                                new Student("E", 80, Enrollment.IFM))));
 
         // Task II: Set of ECTS of all IFM students
 
@@ -31,8 +40,7 @@ public class Main {
      * @return Sum of credit points of all students
      */
     public static Integer students(List<Student> studentList) {
-        // TODO
-        throw new UnsupportedOperationException();
+        return studentList.stream().mapToInt(Student::cps).sum();
     }
 
     /**
