@@ -3,10 +3,7 @@ package streamapi;
 import java.util.Objects;
 
 /** Represent a student. */
-public final class Student {
-    private final String name;
-    private final int cps;
-    private final Enrollment program;
+public record Student(String name, int cps, Enrollment program) {
 
     /**
      * Create a new student object.
@@ -20,34 +17,7 @@ public final class Student {
         this.cps = cps;
         this.program = program;
     }
-
-    /**
-     * Retrieve a student's name.
-     *
-     * @return Name of this student
-     */
-    public String name() {
-        return name;
-    }
-
-    /**
-     * Retrieve a student's ECTS.
-     *
-     * @return number of credit points of this student
-     */
-    public int cps() {
-        return cps;
-    }
-
-    /**
-     * Retrieve a student's study programme.
-     *
-     * @return number of credit points of this student
-     */
-    public Enrollment program() {
-        return program;
-    }
-
+    
     /**
      * Check if a student is enrolled in Computer Science.
      *

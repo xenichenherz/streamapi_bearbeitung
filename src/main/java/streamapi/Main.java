@@ -73,8 +73,7 @@ public class Main {
      * @return An open {@link InputStream} for the resource file
      */
     private static InputStream getResourceAsStream(String path) {
-        // TODO
-        throw new UnsupportedOperationException();
+        return Main.class.getClassLoader().getResourceAsStream(path);
     }
 
     /**
@@ -94,9 +93,10 @@ public class Main {
         try (InputStream stream = getResourceAsStream(path)) {
             BufferedReader r = new BufferedReader(new InputStreamReader(stream));
 
-            List<String> allLines = new ArrayList<>();
+            r.lines().filter(line -> line.startsWith("a") && line.length() >= 2)
+                    .forEach(line -> result.append(line).append("\n"));
 
-            String newLine = r.readLine();
+            /*String newLine = r.readLine();
             while (newLine != null) {
                 allLines.add(newLine);
                 newLine = r.readLine();
@@ -107,7 +107,10 @@ public class Main {
                 if (s.startsWith("a") && !(s.length() < 2)) {
                     result.append(allLines.get(i)).append("\n");
                 }
-            }
+            }*/
+
+            // alle Zeilen mit a und mindestens 2 Zeichen und dann mit \n trennen
+            
 
         } catch (IOException e) {
             System.err.println("Ouch, that didn't work: \n" + e.getMessage());
